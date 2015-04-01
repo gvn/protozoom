@@ -1,0 +1,41 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+#app {
+  width: 500px;
+  height: 500px;
+  position: relative;
+  border: 1px solid pink;
+}
+
+.grid {
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+.slot {
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 25%;
+  height: 25%;
+  border: 1px dotted #ccc;
+
+}
+
+.tile {
+  width: 100px;
+  height: 100px;
+  border: 2px solid #666;
+  border-radius: 5px;
+}

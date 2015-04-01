@@ -1,0 +1,29 @@
+{
+  "name": "protozoom",
+  "version": "1.0.0",
+  "description": "Zooming prototype",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "jsx --watch src/ build/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gvn/protozoom.git"
+  },
+  "keywords": [
+    "prototype"
+  ],
+  "author": "@gvn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gvn/protozoom/issues"
+  },
+  "homepage": "https://github.com/gvn/protozoom",
+  "dependencies": {
+    "react": "^0.13.1"
+  },
+  "devDependencies": {
+    "react-tools": "^0.13.1"
+  }
+}
