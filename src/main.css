@@ -11,18 +11,19 @@ body {
   padding: 0;
 }
 
-#app {
+.wrapper {
   width: 320px;
   height: 480px;
   overflow: hidden;
   position: relative;
-  border: 1px solid pink;
+  border: 1px solid #ccc;
 }
 
 .grid {
   position: absolute;
   width: 400px;
   height: 400px;
+  transition: transform 200ms ease-in-out;
   top: 0;
   left: 0;
   display: flex;
@@ -35,7 +36,6 @@ body {
   flex-shrink: 0;
   width: 25%;
   height: 25%;
-  /*border: 1px dotted #ccc;*/
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,6 +45,31 @@ body {
   width: 90%;
   height: 90%;
   border: 2px solid rgba(0,0,0,0.1);
-  border-radius: 5px;
+  border-radius: 5%;
   background: rgba(200,200,200,1);
 }
+
+.segmented-control {
+  display: flex;
+  width: 320px;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-bottom: 0;
+}
+  .segmented-control button {
+    margin: 5px;
+    font-size: 20px;
+    background: magenta;
+    color: white;
+    border: none;
+    padding: 0.25em 0.5em;
+    border-radius: 0.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    flex-shrink: 0;
+    line-height: 0;
+    padding: 1em 0;
+    outline: 0;
+  }
