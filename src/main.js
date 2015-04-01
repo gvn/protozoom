@@ -109,4 +109,5 @@ React.render(
 function zoom (amount) {
   var elGrid = document.querySelector('.grid');
   elGrid.style.transform = ('scale(' + amount + ')');
+  elGrid.style['-webkit-transform'] = ('scale(' + amount + ')');
 }

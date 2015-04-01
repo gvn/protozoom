@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "jsx --watch src/ build/"
+    "watch": "jsx --watch src/ build/",
+    "autoprefix": "autoprefixer src/main.css --output build/main.css"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
     "react": "^0.13.1"
   },
   "devDependencies": {
+    "autoprefixer": "^5.1.0",
     "react-tools": "^0.13.1"
   }
 }
