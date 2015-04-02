@@ -19,10 +19,6 @@ body {
   border: 1px solid #ccc;
 }
 
-.wrapper > div {
-  position: absolute;
-}
-
 .react-draggable, .cursor {
   cursor: move;
 }
