@@ -1,3 +1,5 @@
+var Draggable = ReactDraggable;
+
 function generateLayout (width, height) {
   var layout = [];
 
@@ -94,7 +96,11 @@ var App = React.createClass({
       <div>
         <SegmentedControl onAmountChange={ this.changeZoom }/>
         <div className="wrapper">
-          <Grid layout={ generateLayout(4,10) }/>
+          <Draggable zIndex={100}>
+            <div>
+              <Grid layout={ generateLayout(4,10) }/>
+            </div>
+          </Draggable>
         </div>
       </div>
     );
