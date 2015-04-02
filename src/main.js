@@ -65,17 +65,17 @@ var SegmentedControl = React.createClass({
     };
   },
   modifyAmount: function (delta) {
-    this.state.amount += delta;
+    this.state.amount *= delta;
 
     this.props.onAmountChange({
       amount: this.state.amount
     });
   },
   increase: function () {
-    this.modifyAmount(0.5);
+    this.modifyAmount(2);
   },
   decrease: function () {
-    this.modifyAmount(-0.5);
+    this.modifyAmount(0.5);
   },
   render: function () {
     return (
