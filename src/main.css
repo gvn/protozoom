@@ -69,11 +69,12 @@ body {
     padding: 0.25em 0.5em;
     border-radius: 0.2em;
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-grow: 1;
     flex-shrink: 0;
     line-height: 0;
     padding: 1em 0;
     outline: 0;
   }
+    .segmented-control button span {
+      flex-grow: 1;
+    }

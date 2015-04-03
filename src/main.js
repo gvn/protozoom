@@ -80,8 +80,8 @@ var SegmentedControl = React.createClass({
   render: function () {
     return (
       <div className="segmented-control">
-        <button onClick={ this.increase }>+</button>
-        <button onClick={ this.decrease }>-</button>
+        <button onClick={ this.increase }><span>+</span></button>
+        <button onClick={ this.decrease }><span>-</span></button>
       </div>
     );
   }
