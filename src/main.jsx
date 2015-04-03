@@ -117,3 +117,4 @@ function zoom (amount) {
   elGrid.style.transform = ('scale(' + amount + ')');
   elGrid.style['-webkit-transform'] = ('scale(' + amount + ')');
 }
+

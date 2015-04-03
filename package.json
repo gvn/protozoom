@@ -9,10 +9,10 @@
 
     "build": "npm run build:js && npm run build:css",
     "build:css": "autoprefixer src/main.css --output build/main.css -b \"last 2 versions\"",
-    "build:js": "jsx src/ build/",
+    "build:js": "jsx -x jsx src/ build/",
 
     "watch": "parallelshell \"npm run watch:js\" \"npm run watch:css\" \"npm run watch:assets\"",
-    "watch:js": "jsx --watch src/ build/",
+    "watch:js": "jsx -x jsx --watch src/ build/",
     "watch:css": "onchange 'src/main.css' -- npm run build:css",
     "watch:assets": "onchange 'src/img/**/*' -- cp -R src/img build/"
   },
