@@ -48,9 +48,10 @@ body {
 .tile {
   width: 90%;
   height: 90%;
-  border: 2px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(220,220,220,1);
   border-radius: 5%;
-  background: rgba(200,200,200,1);
+  background: rgba(220,220,220,1) url('img/page-screenshot.png');
+  background-size: contain;
 }
 
 .segmented-control {

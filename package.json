@@ -7,14 +7,15 @@
     "start": "npm run build && parallelshell \"npm run watch\" \"static\"",
     "test": "echo \"Error: no test specified\" && exit 1",
 
-    "build": "npm run build:js && npm run build:css",
+    "build": "npm run build:js && npm run build:css && npm run build:assets",
     "build:css": "autoprefixer src/main.css --output build/main.css -b \"last 2 versions\"",
     "build:js": "jsx -x jsx src/ build/",
+    "build:assets": "cp -R src/img build/",
 
     "watch": "parallelshell \"npm run watch:js\" \"npm run watch:css\" \"npm run watch:assets\"",
     "watch:js": "jsx -x jsx --watch src/ build/",
     "watch:css": "onchange 'src/main.css' -- npm run build:css",
-    "watch:assets": "onchange 'src/img/**/*' -- cp -R src/img build/"
+    "watch:assets": "onchange 'src/img/**/*' -- npm run build:assets"
   },
   "repository": {
     "type": "git",
