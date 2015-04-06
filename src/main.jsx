@@ -23,6 +23,14 @@ var Tile = React.createClass({
   }
 });
 
+var AddTile = React.createClass({
+  render: function () {
+    return (
+      <button className="add-tile"></button>
+    )
+  }
+})
+
 var Slot = React.createClass({
   render: function () {
     return (
@@ -53,6 +61,29 @@ var Grid = React.createClass({
     console.log('grid rendering');
     var nodes = [];
 
+    var self = this;
+
+    // Determine if a slot has a neighboring tile in any cardinal direction
+    function hasNeighbors(x, y) {
+      if (x > 0 && self.props.layout[y][x - 1]) {
+        return true;
+      }
+
+      if (x < self.props.layout[0].length - 1 && self.props.layout[y][x + 1]) {
+        return true;
+      }
+
+      if (y > 0 && self.props.layout[y - 1][x]) {
+        return true;
+      }
+
+      if (y < self.props.layout.length - 1 && self.props.layout[y + 1][x]) {
+        return true;
+      }
+
+      return false;
+    }
+
     for (var y = 0; y < this.props.layout.length; y++) {
       for (var x = 0; x < this.props.layout[0].length; x++) {
         if (this.props.layout[y][x]) {
@@ -61,8 +92,16 @@ var Grid = React.createClass({
               <Tile/>
             </Slot>
           );
+        } else if (hasNeighbors(x, y)) {
+          nodes.push(
+            <Slot x={x} y={y} perRow={this.props.layout[0].length}>
+              <AddTile/>
+            </Slot>
+          );
         } else {
-          nodes.push(<Slot x={x} y={y} perRow={this.props.layout[0].length} />);
+          nodes.push(
+            <Slot x={x} y={y} perRow={this.props.layout[0].length}/>
+          );
         }
       }
     }

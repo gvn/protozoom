@@ -6,6 +6,10 @@ html {
   box-sizing: inherit;
 }
 
+button {
+  outline: 0;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -48,9 +52,17 @@ body {
 .tile {
   width: 90%;
   height: 90%;
-  border: 1px solid rgba(220,220,220,1);
   border-radius: 5%;
   background: rgba(220,220,220,1) url('img/page-screenshot.png') no-repeat;
+  background-size: contain;
+}
+
+.add-tile {
+  width: 90%;
+  height: 90%;
+  border: 0;
+  border-radius: 5%;
+  background: #99cccc url('img/add.png') no-repeat;
   background-size: contain;
 }
 
@@ -64,7 +76,7 @@ body {
   .segmented-control button {
     margin: 5px;
     font-size: 20px;
-    background: magenta;
+    background: #99cccc;
     color: white;
     border: none;
     padding: 0.25em 0.5em;
@@ -74,7 +86,6 @@ body {
     flex-shrink: 0;
     line-height: 0;
     padding: 1em 0;
-    outline: 0;
   }
     .segmented-control button span {
       flex-grow: 1;
