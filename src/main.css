@@ -25,8 +25,8 @@ body {
 
 .grid {
   position: absolute;
-  width: 400px;
-  height: 400px;
+  width: 320px;
+  height: 320px;
   transition: transform 200ms ease-in-out;
   top: 0;
   left: 0;
@@ -50,7 +50,7 @@ body {
   height: 90%;
   border: 1px solid rgba(220,220,220,1);
   border-radius: 5%;
-  background: rgba(220,220,220,1) url('img/page-screenshot.png');
+  background: rgba(220,220,220,1) url('img/page-screenshot.png') no-repeat;
   background-size: contain;
 }
 

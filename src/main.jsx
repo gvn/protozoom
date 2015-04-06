@@ -1,5 +1,6 @@
 var Draggable = ReactDraggable;
 
+// TEMP: Just used for generating random starter layouts
 function generateLayout (width, height) {
   var layout = [];
 
@@ -25,33 +26,54 @@ var Tile = React.createClass({
 var Slot = React.createClass({
   render: function () {
     return (
-      <div className="slot">
-        {this.props.children}
+      <div
+        className="slot"
+        style={{
+          width: 100 / parseInt(this.props.perRow, 10) + '%',
+          height: 100 / parseInt(this.props.perRow, 10) + '%'
+        }}>
+          {this.props.children}
       </div>
     );
   }
 });
 
 var Grid = React.createClass({
+  zoom: function (amount) {
+    this.setState({
+      zoom: amount
+    });
+  },
+  getInitialState: function () {
+    return {
+      zoom: this.props.initialZoom
+    }
+  },
   render: function () {
+    console.log('grid rendering');
     var nodes = [];
 
     for (var y = 0; y < this.props.layout.length; y++) {
       for (var x = 0; x < this.props.layout[0].length; x++) {
-        if (this.props.layout[x][y]) {
+        if (this.props.layout[y][x]) {
           nodes.push(
-            <Slot x={x} y={y}>
+            <Slot x={x} y={y} perRow={this.props.layout[0].length}>
               <Tile/>
             </Slot>
           );
         } else {
-          nodes.push(<Slot x={x} y={y} />);
+          nodes.push(<Slot x={x} y={y} perRow={this.props.layout[0].length} />);
         }
       }
     }
 
+    var gridTransform = {
+      transform: 'scale(' + this.state.zoom + ')',
+      WebkitTransform: 'scale(' + this.state.zoom + ')'
+    }
+
     return (
-      <div className="grid">
+      <div className="grid" style={gridTransform}>
         {nodes}
       </div>
     );
@@ -89,16 +111,19 @@ var SegmentedControl = React.createClass({
 
 var App = React.createClass({
   changeZoom: function (event) {
-    window.zoom(event.amount);
+    this.refs.masterGrid.zoom(event.amount);
   },
   render: function () {
+    var width = Math.ceil(Math.random() * 16);
+    var height = Math.ceil(Math.random() * 16);
+
     return (
       <div>
         <SegmentedControl onAmountChange={ this.changeZoom }/>
         <div className="wrapper">
           <Draggable zIndex={100}>
             <div>
-              <Grid layout={ generateLayout(4,10) }/>
+              <Grid initialZoom={1} ref="masterGrid" layout={ generateLayout(width, height) }/>
             </div>
           </Draggable>
         </div>
@@ -111,10 +136,3 @@ React.render(
   <App/>,
   document.querySelector('#app')
 );
-
-function zoom (amount) {
-  var elGrid = document.querySelector('.grid');
-  elGrid.style.transform = ('scale(' + amount + ')');
-  elGrid.style['-webkit-transform'] = ('scale(' + amount + ')');
-}
-
