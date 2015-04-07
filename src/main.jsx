@@ -8,7 +8,7 @@ function generateLayout (width, height) {
     layout.push([]);
 
     for (var x = 0; x < width; x++) {
-      layout[y].push(Math.random() > 0.5 ? null : 1);
+      layout[y].push(Math.random() > 0.25 ? null : 'build/img/page-screenshot.png');
     }
   }
 
@@ -17,8 +17,17 @@ function generateLayout (width, height) {
 
 var Tile = React.createClass({
   render: function () {
+    var style = {};
+
+    if (this.props.screenshot !== 'EMPTY') {
+      style.backgroundImage = 'url(' + this.props.screenshot + ')';
+    }
+
     return (
-      <div className="tile"></div>
+      <div
+        className="tile"
+        style={style}>
+      </div>
     );
   }
 });
@@ -26,8 +35,14 @@ var Tile = React.createClass({
 var AddTile = React.createClass({
   render: function () {
     return (
-      <button className="add-tile"></button>
+      <button
+        onClick={this.handleClick}
+        className="add-tile">
+      </button>
     )
+  },
+  handleClick: function (event) {
+    this.props.onClick(event);
   }
 })
 
@@ -53,54 +68,67 @@ var Grid = React.createClass({
     });
   },
   getInitialState: function () {
+    var width = Math.ceil(Math.random() * 16);
+    var height = Math.ceil(Math.random() * 16);
+
     return {
-      zoom: this.props.initialZoom
+      zoom: this.props.initialZoom,
+      layout: generateLayout(width, height)
     }
   },
+  addTileClick: function (event) {
+    var newLayout = this.state.layout;
+
+    newLayout[event.y][event.x] = 'EMPTY';
+
+    this.setState({
+      layout: newLayout
+    });
+  },
   render: function () {
-    console.log('grid rendering');
     var nodes = [];
 
     var self = this;
 
     // Determine if a slot has a neighboring tile in any cardinal direction
     function hasNeighbors(x, y) {
-      if (x > 0 && self.props.layout[y][x - 1]) {
+      if (x > 0 && self.state.layout[y][x - 1]) {
         return true;
       }
 
-      if (x < self.props.layout[0].length - 1 && self.props.layout[y][x + 1]) {
+      if (x < self.state.layout[0].length - 1 && self.state.layout[y][x + 1]) {
         return true;
       }
 
-      if (y > 0 && self.props.layout[y - 1][x]) {
+      if (y > 0 && self.state.layout[y - 1][x]) {
         return true;
       }
 
-      if (y < self.props.layout.length - 1 && self.props.layout[y + 1][x]) {
+      if (y < self.state.layout.length - 1 && self.state.layout[y + 1][x]) {
         return true;
       }
 
       return false;
     }
 
-    for (var y = 0; y < this.props.layout.length; y++) {
-      for (var x = 0; x < this.props.layout[0].length; x++) {
-        if (this.props.layout[y][x]) {
+    for (var y = 0; y < this.state.layout.length; y++) {
+      for (var x = 0; x < this.state.layout[0].length; x++) {
+        if (this.state.layout[y][x]) {
           nodes.push(
-            <Slot x={x} y={y} perRow={this.props.layout[0].length}>
-              <Tile/>
+            <Slot x={x} y={y} perRow={this.state.layout[0].length}>
+              <Tile screenshot={this.state.layout[y][x]} />
             </Slot>
           );
         } else if (hasNeighbors(x, y)) {
           nodes.push(
-            <Slot x={x} y={y} perRow={this.props.layout[0].length}>
-              <AddTile/>
+            <Slot x={x} y={y} perRow={this.state.layout[0].length}>
+              {/* Overriding default click param to provide x/y coords without AddTile knowing them. */}
+              <AddTile onClick={ this.addTileClick.bind(this, {x:x, y:y}) }/>
             </Slot>
           );
         } else {
           nodes.push(
-            <Slot x={x} y={y} perRow={this.props.layout[0].length}/>
+            <Slot x={x} y={y} perRow={this.state.layout[0].length}/>
           );
         }
       }
@@ -153,16 +181,13 @@ var App = React.createClass({
     this.refs.masterGrid.zoom(event.amount);
   },
   render: function () {
-    var width = Math.ceil(Math.random() * 16);
-    var height = Math.ceil(Math.random() * 16);
-
     return (
       <div>
         <SegmentedControl onAmountChange={ this.changeZoom }/>
         <div className="wrapper">
           <Draggable zIndex={100}>
             <div>
-              <Grid initialZoom={1} ref="masterGrid" layout={ generateLayout(width, height) }/>
+              <Grid initialZoom={1} ref="masterGrid"/>
             </div>
           </Draggable>
         </div>

@@ -8,6 +8,7 @@ html {
 
 button {
   outline: 0;
+  cursor: pointer;
 }
 
 body {
@@ -53,7 +54,7 @@ body {
   width: 90%;
   height: 90%;
   border-radius: 5%;
-  background: rgba(220,220,220,1) url('img/page-screenshot.png') no-repeat;
+  background: rgba(120,120,220,1);
   background-size: contain;
 }
 
